@@ -1,37 +1,30 @@
 #include <raylib.h>
+#include <iostream>
 #include "Objects.h"
 
-Vector2 vecAdd(Vector2 a, Vector2 b)
-{
-    a.x += b.x;
-    a.y += b.y;
-
-    return a;
-}
+static constexpr int screenWidth = 900;
+static constexpr int screenHeight = 600;
 
 int main()
 {
     const Color darkGreen = {20, 160, 133, 255};
 
-    constexpr int screenWidth = 900;
-    constexpr int screenHeight = 600;
-
     InitWindow(screenWidth, screenHeight, "Pong");
     SetTargetFPS(60);
 
-    Vector2 p = {450, 300};
-    Rect rect(p, 30, 30);
-    float speed = 2;
+    Rect rect(gwe::Vector2{0, 0}, 30, 30);
+    float speed = 300;
 
     while (!WindowShouldClose())
     {
         BeginDrawing();
         ClearBackground(darkGreen);
-        Vector2 dir = {(IsKeyDown(KEY_D) - IsKeyDown(KEY_A)) * speed, (IsKeyDown(KEY_S) - IsKeyDown(KEY_W)) * speed};
+        gwe::Vector2 dir = {(IsKeyDown(KEY_D) - IsKeyDown(KEY_A)) * speed * GetFrameTime(), (IsKeyDown(KEY_S) - IsKeyDown(KEY_W)) * speed * GetFrameTime()};
 
-        rect.SetPosition(vecAdd(rect.GetPosition(), dir));
+        rect.position += dir;
 
         rect.Draw();
+        DrawText(TextFormat("%.1f, %.1f", rect.position.x, rect.position.y), 10, 10, 22, BLACK);
 
         EndDrawing();
     }
