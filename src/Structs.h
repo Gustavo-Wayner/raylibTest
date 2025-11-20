@@ -1,4 +1,7 @@
+#pragma once
+
 #include <cmath>
+#include "Objects.h"
 
 namespace gwe
 {
@@ -13,7 +16,7 @@ namespace gwe
         Vector2(float _x, float _y) : x(_x), y(_y) {}
         Vector2(float arr[2]) : x(arr[0]), y(arr[1]) {}
 
-        float Magnitude() { return Dot(*this, *this); }
+        float Magnitude() { return sqrt(Dot(*this, *this)); }
 
         gwe::Vector2 GetUnitVector() { return *this / Magnitude(); }
 
@@ -140,15 +143,15 @@ namespace gwe
 #pragma endregion
     };
 
-    float Dot(gwe::Vector2 vecA, gwe::Vector2 vecB)
+    inline float Dot(gwe::Vector2 vecA, gwe::Vector2 vecB)
     {
-        return sqrt(vecA.x * vecB.x + vecA.y * vecB.y);
+        return vecA.x * vecB.x + vecA.y * vecB.y;
     }
-    float Angle(gwe::Vector2 vecA, gwe::Vector2 vecB)
+    inline float Angle(gwe::Vector2 vecA, gwe::Vector2 vecB)
     {
         return acos(Dot(vecA, vecB) / (vecA.Magnitude() * vecB.Magnitude()));
     }
-    void LimitMagnitude(Vector2 &vec, float max, float min = 0)
+    inline void LimitMagnitude(Vector2 &vec, float max, float min = 0)
     {
         if (vec.Magnitude() > max)
             vec.SetMagnitude(max);
@@ -169,4 +172,7 @@ namespace gwe
         float top() { return y; }
         float bottom() { return y + height; }
     };
+
+    inline int sign(float num) { return ((num > 1) - (num < 1)); }
+    inline float abs(float num) { return num * sign(num); }
 }

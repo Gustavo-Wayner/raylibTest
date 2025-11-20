@@ -1,3 +1,5 @@
+#pragma once
+
 #include <raylib.h>
 #include "Structs.h"
 
@@ -101,7 +103,7 @@ private:
     };
 
 public:
-    const double Width, Height;
+    double Width, Height;
     Position position;
 
     Rect(gwe::Vector2 _position, double _Width, double _Height, Color _color = {255, 255, 255, 255}) : Width(_Width), Height(_Height)
@@ -120,5 +122,16 @@ public:
     {
         hitbox.x = position.x - Width * 0.5;
         hitbox.y = position.y - Height * 0.5;
+    }
+
+    Rect &operator=(const Rect &other)
+    {
+        Width = other.Width;
+        Height = other.Height;
+        color = other.color;
+        Pos = other.Pos;
+        hitbox = other.hitbox;
+        position = Position(this);
+        return *this;
     }
 };

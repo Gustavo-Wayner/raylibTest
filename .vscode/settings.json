@@ -120,6 +120,8 @@
 		"stdfloat": "cpp",
 		"stop_token": "cpp",
 		"text_encoding": "cpp",
-		"thread": "cpp"
-	}
+		"thread": "cpp",
+		"rooms": "cpp"
+	},
+	"cmake.sourceDirectory": "D:/git/Personal/raylibTest/raylib/raylib"
 }
